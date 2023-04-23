@@ -19,9 +19,9 @@ touch .gitignore
 while [[ $# -gt 0 ]]
 do 
 key="$1"
-if [ "$key" == "--date" ]; then
+if [[ "$key" == "--date" || "$key" == "-d" ]]; then 
     case $key in 
-        --date)
+        --date|-d)
         date=$(date +%Y-%m-%d)
         echo "Dzisiejsza data to $date"
         shift
@@ -32,7 +32,7 @@ if [ "$key" == "--date" ]; then
         ;;
     esac
 #---------------------------------
-elif [ "$key" == "--logs" ];then
+elif [[ "$key" == "--logs" || "$key" == "-l" ]];then
 for i in {1..100}
 do
     nazwa_pliku="plik$i.txt"
@@ -43,14 +43,23 @@ do
     echo "dzisiajsza data to $(date +%Y-%m-%d)" >>"$nazwa_pliku"
 done   
 #---------------------------------
-elif [ "$key" = "--help" ]; then
-    echo "komenda '--date' wyświetla dzisiejsza date "
-    echo "komenda '--logs' tworzy 100 plików tekstowych i w kazdym podana jest nazwa tego skryptu, data, numer pliku oraz jego nazwa "
+elif [[ "$key" = "--help" || "$key" == "-h" ]]; then
+    echo "komenda '--date' lub '-d' wyświetla dzisiejsza date "
+    echo "komenda '--logs' lub '-l' tworzy 100 plików tekstowych i w kazdym podana jest nazwa tego skryptu, data, numer pliku oraz jego nazwa "
     echo "komenda '--logs __' robi właściwie to samo co '--logs', ale można wybrać parametr określający ilosc stworzonych plików  "
+    echo "komenda '--init' lub 'i' "
+    echo "Nie wiem o co dokładnie chodzi, ale dodaję nowe informacje do komendy 'help' "
+    echo "Nie siadaj na słoik, bo może pęknąć"
+    echo "kiedy winda zacznie spadać najlepiej jest się położyc"
     exit 0 
+elif [[ "$key" == "--init" || "$key" == "-i" ]]; then
+    git clone https://github.com/Acafax/Lab_4
+    echo "koko"
+    export PATH=$PATH:$(pwd)
 
 else
-    echo "Nie rozpoznano flagi $key"
+    echo "Nie rozpoznano flagi $key" 
+
 fi
 
 shift
