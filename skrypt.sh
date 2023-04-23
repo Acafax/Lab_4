@@ -1,5 +1,8 @@
 #!/bin/bash
 
+touch .gitignore
+    echo "*log*" >> ".gitignore"
+
 while [[ $# -gt 0 ]]
 do 
 key="$1"
