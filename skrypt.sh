@@ -46,17 +46,36 @@ done
 elif [[ "$key" = "--help" || "$key" == "-h" ]]; then
     echo "komenda '--date' lub '-d' wyświetla dzisiejsza date "
     echo "komenda '--logs' lub '-l' tworzy 100 plików tekstowych i w kazdym podana jest nazwa tego skryptu, data, numer pliku oraz jego nazwa "
-    echo "komenda '--logs __' robi właściwie to samo co '--logs', ale można wybrać parametr określający ilosc stworzonych plików  "
-    echo "komenda '--init' lub 'i' "
+    echo "komenda '--logs __' robi właściwie to samo co '--logs' ale można wybrać parametr określający ilosc stworzonych plików  "
+    echo "komenda '--init' lub '-i' "tworzy kopię repozytorium i ustawia ściezkę w zmiennej środowiskowej "
+    echo "komenda '--error' lub '-e'  tworzy errorx.txt, bez liczby ma domyślne tworzyć 100 plików"
     echo "Nie wiem o co dokładnie chodzi, ale dodaję nowe informacje do komendy 'help' "
     echo "Nie siadaj na słoik, bo może pęknąć"
     echo "kiedy winda zacznie spadać najlepiej jest się położyc"
     exit 0 
+#----------------------------------
 elif [[ "$key" == "--init" || "$key" == "-i" ]]; then
     git clone https://github.com/Acafax/Lab_4
     echo "koko"
     export PATH=$PATH:$(pwd)
+#----------------------------------
 
+elif [[ "$key" == "--error" && "$2" =~ ^[0-9]+$ && "$2" -ge 0 && "$2" -le 50 ]]; then
+    for ((i=1; i<=$2; i++));do
+        touch "error$i.txt"
+    done
+
+elif [[ "$1" == "-e" && "$2" =~ ^[0-9]+$ && "$2" -ge 1 && "$2" -le 50 ]]; then
+    for ((i=1; i<=$2; i++)); do
+        touch "errorx/error$i.txt"
+    done	
+
+elif [[ "$key" == "--error" || "$key" == "-e" ]]; then
+    for ((i=1; i<=100; i++)); do
+        touch "error$i.txt"
+    done
+
+#----------------------------------
 else
     echo "Nie rozpoznano flagi $key" 
 
